@@ -28,12 +28,6 @@ class InstallDevCommand extends Command {
    * @var array
    */
   protected $composerConfig = [];
-  /**
-   * Project to udpate.
-   *
-   * @var string
-   */
-  protected $projectPath = '';
 
   /**
    * {@inheritdoc}
@@ -135,19 +129,30 @@ class InstallDevCommand extends Command {
   }
 
   /**
-   * Get project path to configure.
-   */
-  protected function getProjectPath() {
-    $value = Yaml::parseFile('config.yml');
-    $this->projectPath = $value['project']['path'];
-  }
-
-  /**
    * Run commands after installing.
    */
   protected function postScripts() {
-    //phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
-    //$ phpcs --config-set installed_paths ~/workspace/coder/coder_sniffer
+    foreach ($this->dependencies as $key => $value) {
+      $options = explode(" ", $value['post-command']);
+      $process = new Process($options);
+      $process->run(function ($type, $buffer) {
+        echo $buffer;
+      });
+    }
   }
 
+  /**
+   * Run drush commands after installing.
+   */
+  protected function drushScripts() {
+    foreach ($this->dependencies as $key => $value) {
+      $options = explode(" ", $value['drush-command']);
+      print_r($options);
+      $process = new Process($options);
+      $process->run(function ($type, $buffer) {
+        echo $buffer;
+      });
+    }
+  }
+ 
 }

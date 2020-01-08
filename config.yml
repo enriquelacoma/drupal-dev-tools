@@ -12,7 +12,7 @@ composer:
     drupal/devel:
       install: false
       require-dev: true
-      post-command: drush en devel 
+      drush-command: drush en devel
     mglaman/drupal-check:
       install: false
       require-dev: true
@@ -20,15 +20,15 @@ composer:
     drupal/hacked:
       install: false
       require-dev: true
-      post-command: drush en hacked
+      drush-command: drush en hacked
     drupal/twig_vardumper:
       install: false
       require-dev: true
-      post-command: drush en twig_vardumper
+      drush-command: drush en twig_vardumper
     drupal/debug_bar:
       install: false
       require-dev: true
-      post-command: drush en debug-bar
+      drush-command: drush en debug-bar
 # Check extension to installº
     drupal/drupal-extension:
       install: false
