@@ -1,0 +1,36 @@
+project:
+  path: c:\proyectos\maggi\site
+composer:
+  config:
+    timeout: 2000
+    verbose: false
+  dependencies:
+    drupal/coder:
+      install: true
+      require-dev: true
+      post-command: php script.php phpcs-config
+    drupal/devel:
+      install: true
+      require-dev: true
+      post-command: drush en devel
+    mglaman/drupal-check:
+      install: true
+      require-dev: true
+      post-command:
+    drupal/hacked:
+      install: true
+      require-dev: true
+      post-command: drush en hacked
+    drupal/twig_vardumper:
+      install: true
+      require-dev: true
+      post-command: drush en twig_vardumper
+    drupal/debug_bar:
+      install: true
+      require-dev: true
+      post-command: drush en debug-bar
+# Check extension to installº
+    drupal/drupal-extension:
+      install: false
+      require-dev: true
+      post-command: 

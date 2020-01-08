@@ -4,8 +4,8 @@
 require __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use Console\InstallCommand;
+use Console\InstallDevCommand;
 
 $app = new Application('Console App', 'v1.0.0');
-$app->add(new InstallCommand());
+$app->add(new InstallDevCommand());
 $app->run();
