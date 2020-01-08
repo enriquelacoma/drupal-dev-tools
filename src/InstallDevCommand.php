@@ -13,12 +13,31 @@ use Symfony\Component\Yaml\Exception\ParseException;
 use Console\Command;
 
 /**
- * Author: Enrique Lacoma<enriquelacoma@gmail.com>
+ * Author: Enrique Lacoma<enriquelacoma@gmail.com>.
  */
 class InstallDevCommand extends Command {
+  /**
+   * Modules to install.
+   *
+   * @var array
+   */
   protected $dependencies = [];
+  /**
+   * Composer config.
+   *
+   * @var array
+   */
   protected $composerConfig = [];
+  /**
+   * Project to udpate.
+   *
+   * @var string
+   */
   protected $projectPath = '';
+
+  /**
+   * {@inheritdoc}
+   */
   public function configure() {
     $this->getDependencies();
     $this->getProjectPath();
@@ -26,24 +45,40 @@ class InstallDevCommand extends Command {
     $this->setName('install-dev')
       ->setDescription('Install dev.')
       ->setHelp('Install dev...');
-      //->addArgument('username', InputArgument::REQUIRED, 'The username of the user.');
+    /*
+    ->addArgument('username', InputArgument::REQUIRED, 'The username of the user.');
+     */
   }
+
+  /**
+   * {@inheritdoc}
+   */
   public function execute(InputInterface $input, OutputInterface $output) {
     $this->runCommand($input, $output);
     $this->postScripts();
     // outputs multiple lines to the console (adding "\n" at the end of each line)
     /*
     $output->writeln([
-      '====**** User Greetings Console App ****====',
-      '==========================================',
-      '',
+    '====**** User Greetings Console App ****====',
+    '==========================================',
+    '',
     ]);
-    */
+     */
   }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function runCommand(InputInterface $input, OutputInterface $output) {
     // Configure composer timeout.
     if ($this->composerConfig > 0) {
-      $options = ["composer", "config", "--global", "process-timeout", $this->composerConfig['timeout']];
+      $options = [
+        "composer",
+        "config",
+        "--global",
+        "process-timeout",
+        $this->composerConfig['timeout']
+      ];
       // Add verbose options.
       if (1 == $this->composerConfig['verbose']) {
         $options[] = '-vvv';
@@ -78,6 +113,10 @@ class InstallDevCommand extends Command {
       echo $buffer;
     });
   }
+
+  /**
+   * Get modules to install.
+   */
   protected function getDependencies() {
     $value = Yaml::parseFile('config.yml');
     foreach ($value['composer']['dependencies'] as $key => $value) {
@@ -86,16 +125,29 @@ class InstallDevCommand extends Command {
       }
     }
   }
+
+  /**
+   * Get composer configuration.
+   */
   protected function getComposerConfig() {
     $value = Yaml::parseFile('config.yml');
     $this->composerConfig = $value['composer']['config'];
   }
+
+  /**
+   * Get project path to configure.
+   */
   protected function getProjectPath() {
     $value = Yaml::parseFile('config.yml');
     $this->projectPath = $value['project']['path'];
   }
+
+  /**
+   * Run commands after installing.
+   */
   protected function postScripts() {
     //phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
     //$ phpcs --config-set installed_paths ~/workspace/coder/coder_sniffer
   }
+
 }
