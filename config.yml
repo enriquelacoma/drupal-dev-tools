@@ -1,5 +1,6 @@
 project:
   path: /var/www/html
+  name: drupal
   mysql:
     DB_ROOT_PASSWORD: root
     DB_NAME: drupal

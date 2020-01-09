@@ -37,13 +37,13 @@ class phpcsCodingCommand extends Command {
    * {@inheritdoc}
    */
   protected function runCommand(InputInterface $input, OutputInterface $output) {
+    $this->composerTimeout();
     $options = [
       'vendor/squizlabs/php_codesniffer/bin/phpcs',
       '--config-set',
       'installed-paths',
       'vendor/drupal/coder/code_sniffer'
     ];
-    print_r($options);
     $process = new Process($options, $this->projectPath);
     $process->run(function ($type, $buffer) {
       echo $buffer;

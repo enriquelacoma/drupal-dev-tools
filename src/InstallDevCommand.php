@@ -17,19 +17,6 @@ use Console\Command;
  */
 class InstallDevCommand extends Command {
   /**
-   * Modules to install.
-   *
-   * @var array
-   */
-  protected $dependencies = [];
-  /**
-   * Composer config.
-   *
-   * @var array
-   */
-  protected $composerConfig = [];
-
-  /**
    * {@inheritdoc}
    */
   public function configure() {
@@ -62,23 +49,7 @@ class InstallDevCommand extends Command {
    */
   protected function runCommand(InputInterface $input, OutputInterface $output) {
     // Configure composer timeout.
-    if ($this->composerConfig > 0) {
-      $options = [
-        "composer",
-        "config",
-        "--global",
-        "process-timeout",
-        $this->composerConfig['timeout']
-      ];
-      // Add verbose options.
-      if (1 == $this->composerConfig['verbose']) {
-        $options[] = '-vvv';
-      }
-      $process = new Process($options, $this->projectPath);
-      $process->run(function ($type, $buffer) {
-        echo $buffer;
-      });
-    }
+    $this->composerTimeout();
     // Add tools with composer.
     foreach ($this->dependencies as $key => $value) {
       $options = ['composer', 'require', $key];

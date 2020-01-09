@@ -37,11 +37,12 @@ class InstallDrupalCommand extends Command {
    * {@inheritdoc}
    */
   protected function runCommand(InputInterface $input, OutputInterface $output) {
+    $this->composerTimeout();
     $options = [
       "composer",
       "create-project",
       "drupal-composer/drupal-project:8.x-dev",
-      ".",
+      $this->config['project']['name'],
       "--no-interaction",
     ];
     // Add verbose options.
@@ -52,6 +53,30 @@ class InstallDrupalCommand extends Command {
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
+    $options = [
+      'composer',
+      'install',
+    ];
+    $process = new Process($options, $this->projectPath . "/" . $this->config['project']['name']);
+    $process->run(function ($type, $buffer) {
+      echo $buffer;
+    });
+    $dbUser = $this->config['project']['mysql']['DB_USER'];
+    $dbPass = $this->config['project']['mysql']['DB_PASSWORD'];
+    $ipAddress = "mariadb";
+    $dbName = $this->config['project']['mysql']['DB_NAME'];
+    $options = [
+      $this->projectPath . "/" . $this->config['project']['name'] . "drush",
+      'si',
+      'standard',
+      "--db-url=mysql://[$dbUser]:[$dbPass]@[$ipAddress]/[$dbName]",
+    ];
+    $process = new Process($options, $this->projectPath);
+    $process->run(function ($type, $buffer) {
+      echo $buffer;
+    });
+    //chmod 755 settings.php
+    //chmod 777 files
   }
 
 }
