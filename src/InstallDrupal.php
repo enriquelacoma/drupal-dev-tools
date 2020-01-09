@@ -15,15 +15,15 @@ use Console\Command;
 /**
  * Author: Enrique Lacoma<enriquelacoma@gmail.com>.
  */
-class phpcsCodingCommand extends Command {
+class InstallDrupalCommand extends Command {
 
   /**
    * {@inheritdoc}
    */
   public function configure() {
-    $this->setName('phpcs-config')
-      ->setDescription('Configure phpcs.')
-      ->setHelp('Configure phpcs...');
+    $this->setName('install-site')
+      ->setDescription('Install drupal.')
+      ->setHelp('Install drupal...');
   }
 
   /**
@@ -38,21 +38,16 @@ class phpcsCodingCommand extends Command {
    */
   protected function runCommand(InputInterface $input, OutputInterface $output) {
     $options = [
-      'vendor/squizlabs/php_codesniffer/bin/phpcs',
-      '--config-set',
-      'installed-paths',
-      'vendor/drupal/coder/code_sniffer'
+      "composer",
+      "create-project",
+      "drupal-composer/drupal-project:8.x-dev",
+      ".",
+      "--no-interaction",
     ];
-    print_r($options);
-    $process = new Process($options, $this->projectPath);
-    $process->run(function ($type, $buffer) {
-      echo $buffer;
-    });
-     $options = [
-      'vendor/squizlabs/php_codesniffer/bin/phpcs',
-      '-i',
-    ];
-    print_r($options);
+    // Add verbose options.
+    if (1 == $this->composerConfig['verbose']) {
+      $options[] = '-vvv';
+    }
     $process = new Process($options, $this->projectPath);
     $process->run(function ($type, $buffer) {
       echo $buffer;

@@ -1,5 +1,10 @@
 project:
-  path: c:\proyectos\maggi\site
+  path: /var/www/html
+  mysql:
+    DB_ROOT_PASSWORD: root
+    DB_NAME: drupal
+    DB_USER: root
+    DB_PASSWORD: root
 composer:
   config:
     timeout: 2000

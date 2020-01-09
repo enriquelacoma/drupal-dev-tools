@@ -33,9 +33,6 @@ class InstallDevCommand extends Command {
    * {@inheritdoc}
    */
   public function configure() {
-    $this->getDependencies();
-    $this->getProjectPath();
-    $this->getComposerConfig();
     $this->setName('install-dev')
       ->setDescription('Install dev.')
       ->setHelp('Install dev...');
@@ -109,26 +106,6 @@ class InstallDevCommand extends Command {
   }
 
   /**
-   * Get modules to install.
-   */
-  protected function getDependencies() {
-    $value = Yaml::parseFile('config.yml');
-    foreach ($value['composer']['dependencies'] as $key => $value) {
-      if (1 == $value['install']) {
-        $this->dependencies[$key] = $value;
-      }
-    }
-  }
-
-  /**
-   * Get composer configuration.
-   */
-  protected function getComposerConfig() {
-    $value = Yaml::parseFile('config.yml');
-    $this->composerConfig = $value['composer']['config'];
-  }
-
-  /**
    * Run commands after installing.
    */
   protected function postScripts() {
@@ -154,5 +131,5 @@ class InstallDevCommand extends Command {
       });
     }
   }
- 
+
 }

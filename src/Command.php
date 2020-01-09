@@ -23,6 +23,9 @@ class Command extends SymfonyCommand {
    * {@inheritdoc}
    */
   public function __construct() {
+    $this->getDependencies();
+    $this->getProjectPath();
+    $this->getComposerConfig();
     parent::__construct();
   }
 
@@ -40,5 +43,24 @@ class Command extends SymfonyCommand {
     $this->projectPath = $value['project']['path'];
   }
 
+  /**
+   * Get modules to install.
+   */
+  protected function getDependencies() {
+    $value = Yaml::parseFile('config.yml');
+    foreach ($value['composer']['dependencies'] as $key => $value) {
+      if (1 == $value['install']) {
+        $this->dependencies[$key] = $value;
+      }
+    }
+  }
+
+  /**
+   * Get composer configuration.
+   */
+  protected function getComposerConfig() {
+    $value = Yaml::parseFile('config.yml');
+    $this->composerConfig = $value['composer']['config'];
+  }
 
 }
