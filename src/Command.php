@@ -62,23 +62,24 @@ class Command extends SymfonyCommand {
   }
 
   protected function composerTimeout() {
-    if ($this->composerConfig > 0) {
+    if ($this->config['composer']['config']['timeout'] > 0) {
       $options = [
         "composer",
         "config",
         "--global",
         "process-timeout",
-        $this->composerConfig['timeout']
+        $this->composerConfig['timeout'],
       ];
+      set_time_limit(100);
       // Add verbose options.
       if (1 == $this->composerConfig['verbose']) {
         $options[] = '-vvv';
       }
-      $process = new Process($options, $this->projectPath);
+      $process = new Process($options);
+      $process->setTimeout($this->composerConfig['timeout']);
       $process->run(function ($type, $buffer) {
-        echo "---" . $buffer;
+        echo $buffer;
       });
     }
   }
-
 }

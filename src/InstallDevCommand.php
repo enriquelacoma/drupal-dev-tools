@@ -34,7 +34,6 @@ class InstallDevCommand extends Command {
   public function execute(InputInterface $input, OutputInterface $output) {
     $this->runCommand($input, $output);
     $this->postScripts();
-    // outputs multiple lines to the console (adding "\n" at the end of each line)
     /*
     $output->writeln([
     '====**** User Greetings Console App ****====',
@@ -62,6 +61,7 @@ class InstallDevCommand extends Command {
         $options[] = '-vvv';
       }
       $process = new Process($options, $this->projectPath);
+      $process->setTimeout($this->composerConfig['timeout']);
       $process->run(function ($type, $buffer) {
         echo $buffer;
       });
@@ -71,6 +71,7 @@ class InstallDevCommand extends Command {
       $options[] = '-vvv';
     }
     $process = new Process($options, $this->projectPath);
+    $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
@@ -80,9 +81,10 @@ class InstallDevCommand extends Command {
    * Run commands after installing.
    */
   protected function postScripts() {
-    foreach ($this->dependencies as $key => $value) {
+    foreach ($this->dependencies as $value) {
       $options = explode(" ", $value['post-command']);
       $process = new Process($options);
+      $process->setTimeout($this->composerConfig['timeout']);
       $process->run(function ($type, $buffer) {
         echo $buffer;
       });
@@ -93,10 +95,10 @@ class InstallDevCommand extends Command {
    * Run drush commands after installing.
    */
   protected function drushScripts() {
-    foreach ($this->dependencies as $key => $value) {
+    foreach ($this->dependencies as $value) {
       $options = explode(" ", $value['drush-command']);
-      print_r($options);
       $process = new Process($options);
+      $process->setTimeout($this->composerConfig['timeout']);
       $process->run(function ($type, $buffer) {
         echo $buffer;
       });

@@ -15,7 +15,7 @@ use Console\Command;
 /**
  * Author: Enrique Lacoma<enriquelacoma@gmail.com>.
  */
-class phpcsCodingCommand extends Command {
+class PhpcsCodingCommand extends Command {
 
   /**
    * {@inheritdoc}
@@ -42,18 +42,19 @@ class phpcsCodingCommand extends Command {
       'vendor/squizlabs/php_codesniffer/bin/phpcs',
       '--config-set',
       'installed-paths',
-      'vendor/drupal/coder/code_sniffer'
+      'vendor/drupal/coder/code_sniffer',
     ];
     $process = new Process($options, $this->projectPath);
+    $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
-     $options = [
+    $options = [
       'vendor/squizlabs/php_codesniffer/bin/phpcs',
       '-i',
     ];
-    print_r($options);
     $process = new Process($options, $this->projectPath);
+    $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });

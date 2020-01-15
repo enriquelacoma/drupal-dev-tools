@@ -37,7 +37,6 @@ class InstallDrupalCommand extends Command {
    * {@inheritdoc}
    */
   protected function runCommand(InputInterface $input, OutputInterface $output) {
-    $this->composerTimeout();
     $options = [
       "composer",
       "create-project",
@@ -50,6 +49,7 @@ class InstallDrupalCommand extends Command {
       $options[] = '-vvv';
     }
     $process = new Process($options, $this->projectPath);
+    $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
@@ -58,6 +58,7 @@ class InstallDrupalCommand extends Command {
       'install',
     ];
     $process = new Process($options, $this->projectPath . "/" . $this->config['project']['name']);
+    $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
@@ -66,12 +67,14 @@ class InstallDrupalCommand extends Command {
     $ipAddress = "mariadb";
     $dbName = $this->config['project']['mysql']['DB_NAME'];
     $options = [
-      $this->projectPath . "/" . $this->config['project']['name'] . "drush",
-      'si',
-      'standard',
-      "--db-url=mysql://[$dbUser]:[$dbPass]@[$ipAddress]/[$dbName]",
+      "drush",
+      "si",
+      "standard",
+      "-vvv",
+      "--db-url=mysql://$dbUser:$dbPass@$ipAddress/$dbName",
     ];
-    $process = new Process($options, $this->projectPath);
+    $process = new Process($options, $this->projectPath . "/drupal");
+    $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
