@@ -66,7 +66,6 @@ class Command extends SymfonyCommand {
       $options = [
         "composer",
         "config",
-        "--global",
         "process-timeout",
         $this->composerConfig['timeout'],
       ];
@@ -75,7 +74,7 @@ class Command extends SymfonyCommand {
       if (1 == $this->composerConfig['verbose']) {
         $options[] = '-vvv';
       }
-      $process = new Process($options);
+      $process = new Process($options, $this->projectPath);
       $process->setTimeout($this->composerConfig['timeout']);
       $process->run(function ($type, $buffer) {
         echo $buffer;

@@ -11,6 +11,10 @@ composer:
     timeout: 2000
     verbose: true
   dependencies:
+    dealerdirect/phpcodesniffer-composer-installer:
+      install: true
+      require-dev: true
+      drush-command:
     drupal/coder:
       install: true
       require-dev: true
@@ -20,7 +24,7 @@ composer:
       require-dev: true
       drush-command: drush en devel -y
     mglaman/drupal-check:
-      install: false
+      install: true
       require-dev: true
       post-command:
     drupal/hacked:

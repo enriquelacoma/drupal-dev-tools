@@ -37,22 +37,24 @@ class PhpcsCodingCommand extends Command {
    * {@inheritdoc}
    */
   protected function runCommand(InputInterface $input, OutputInterface $output) {
-    $this->composerTimeout();
+    //$this->composerTimeout();
     $options = [
-      'vendor/squizlabs/php_codesniffer/bin/phpcs',
+      $this->projectPath . "/" . $this->config['project']['name'] . '/vendor/squizlabs/php_codesniffer/bin/phpcs',
       '--config-set',
       'installed-paths',
-      'vendor/drupal/coder/code_sniffer',
+      $this->projectPath . "/" . $this->config['project']['name'] . '/vendor/drupal/coder/code_sniffer',
     ];
+    echo implode(" ", $options);
     $process = new Process($options, $this->projectPath);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
     $options = [
-      'vendor/squizlabs/php_codesniffer/bin/phpcs',
+      $this->projectPath . "/" . $this->config['project']['name'] . '/vendor/squizlabs/php_codesniffer/bin/phpcs',
       '-i',
     ];
+    echo implode(" ", $options);
     $process = new Process($options, $this->projectPath);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
