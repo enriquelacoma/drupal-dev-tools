@@ -39,7 +39,7 @@ composer:
       install: true
       require-dev: true
       drush-command: drush en debug-bar -y
-# Check extension to installº
+# Check extension to install
     drupal/drupal-extension:
       install: false
       require-dev: true

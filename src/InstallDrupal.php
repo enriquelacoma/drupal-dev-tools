@@ -89,8 +89,6 @@ class InstallDrupalCommand extends Command {
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
-    //chmod 755 settings.php
-    //chmod 777 files
   }
 
 }

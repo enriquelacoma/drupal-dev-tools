@@ -44,7 +44,6 @@ class PhpcsCodingCommand extends Command {
       'installed-paths',
       $this->projectPath . "/" . $this->config['project']['name'] . '/vendor/drupal/coder/code_sniffer',
     ];
-    echo implode(" ", $options);
     $process = new Process($options, $this->projectPath);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
@@ -54,7 +53,6 @@ class PhpcsCodingCommand extends Command {
       $this->projectPath . "/" . $this->config['project']['name'] . '/vendor/squizlabs/php_codesniffer/bin/phpcs',
       '-i',
     ];
-    echo implode(" ", $options);
     $process = new Process($options, $this->projectPath);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {

@@ -34,13 +34,6 @@ class InstallDevCommand extends Command {
   public function execute(InputInterface $input, OutputInterface $output) {
     $this->runCommand($input, $output);
     $this->postScripts();
-    /*
-    $output->writeln([
-    '====**** User Greetings Console App ****====',
-    '==========================================',
-    '',
-    ]);
-     */
   }
 
   /**
