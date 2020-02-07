@@ -41,10 +41,14 @@ class InstallDevCommand extends Command {
    */
   protected function runCommand(InputInterface $input, OutputInterface $output) {
     // Configure composer timeout.
-    $this->composerTimeout();
+    // $this->composerTimeout();
     // Add tools with composer.
     foreach ($this->dependencies as $key => $value) {
-      $options = ['composer', 'require', $key];
+      $options = ['composer'];
+      if (isset($value['switches']) && count($value['switches'])) {
+        $options = array_merge($options, $value['switches']);
+      }
+      $options = array_merge($options, ['require', $key]);
       // Add dev switch.
       if (1 == $value['require-dev']) {
         $options[] = '--dev';

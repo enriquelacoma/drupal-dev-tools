@@ -7,9 +7,11 @@ use Symfony\Component\Console\Application;
 use Console\InstallDevCommand;
 use Console\PhpcsCodingCommand;
 use Console\InstallDrupalCommand;
+use Console\BehatConfigCommand;
 
 $app = new Application('Console App', 'v1.0.0');
 $app->add(new InstallDevCommand());
 $app->add(new Phpcscodingcommand());
 $app->add(new InstallDrupalCommand());
+$app->add(new BehatConfigCommand());
 $app->run();

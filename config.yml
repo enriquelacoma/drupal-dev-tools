@@ -9,7 +9,7 @@ project:
 composer:
   config:
     timeout: 2000
-    verbose: true
+    verbose: false
   dependencies:
     dealerdirect/phpcodesniffer-composer-installer:
       install: true
@@ -18,6 +18,8 @@ composer:
     drupal/coder:
       install: true
       require-dev: true
+      switches:
+        - global
       post-command: php run.php phpcs-config
     drupal/devel:
       install: false
@@ -26,6 +28,8 @@ composer:
     mglaman/drupal-check:
       install: true
       require-dev: true
+      switches:
+        - global
       post-command:
     drupal/hacked:
       install: true
@@ -39,8 +43,7 @@ composer:
       install: true
       require-dev: true
       drush-command: drush en debug-bar -y
-# Check extension to install
     drupal/drupal-extension:
-      install: false
+      install: true
       require-dev: true
-      post-command:
+      post-command: php run.php behat-config
