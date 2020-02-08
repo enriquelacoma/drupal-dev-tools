@@ -50,7 +50,7 @@ class Command extends SymfonyCommand {
    * Get modules to install.
    */
   protected function getConfig() {
-    $config = Yaml::parseFile('config.yml');
+    $config = Yaml::parseFile('config/config.yml');
     $this->config = $config;
     $this->composerConfig = $config['composer']['config'];
     $this->projectPath = $config['project']['path'];

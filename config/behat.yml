@@ -1,0 +1,31 @@
+default:
+  suites:
+    default:
+      contexts:
+        - FeatureContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+  extensions:
+    Drupal\MinkExtension:
+      goutte: ~
+      javascript_session: 'selenium2'
+      browser_name: 'chrome'
+      selenium2:
+        browser: 'chrome'
+        wd_host: $wd_host
+        capabilities:
+          marionette: true
+      files_path: $files_path
+      ajax_timeout: 30
+      base_url: $base_url
+    Drupal\DrupalExtension:
+      blackbox: ~
+      api_driver: 'drupal'
+      drush:
+        alias: 'local'
+      drupal:
+        drupal_root: $drupal_root
+      region_map:
+        content: "#content"

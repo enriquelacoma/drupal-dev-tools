@@ -47,6 +47,20 @@ class BehatConfigCommand extends Command {
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
+    // Replace behat.yml file.
+    copy("config/behat.yml", $this->projectPath . "/" . $this->config['project']['name'] . "/behat.yml");
+    // Replace values in behat.yml file.
+    $config = Yaml::parseFile($this->projectPath . "/" . $this->config['project']['name'] . "/behat.yml");
+    $wd_host ='http://selenium:4444/wd/hub';
+    $files_path = $this->projectPath . "/" . $this->config['project']['name'] . "/web";
+    $base_url = "http://php/drupal/web";
+    $drupal_root = $this->projectPath . "/" . $this->config['project']['name'] . "/web";
+    $config['default']['extensions']['Drupal\MinkExtension']['selenium2']['wd_host'] = $wd_host;
+    $config['default']['extensions']['Drupal\MinkExtension']['files_path'] = $files_path;
+    $config['default']['extensions']['Drupal\MinkExtension']['base_url'] = $base_url;
+    $config['default']['extensions']['Drupal\DrupalExtension']['drupal']['drupal_root'] = $drupal_root;
+    $yaml = Yaml::dump($config, 8);
+    file_put_contents($this->projectPath . "/" . $this->config['project']['name'] . "/behat.yml", $yaml);
   }
 
 }
