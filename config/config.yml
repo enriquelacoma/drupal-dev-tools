@@ -22,7 +22,7 @@ composer:
         - global
       post-command: php run.php phpcs-config
     drupal/devel:
-      install: false
+      install: true
       require-dev: true
       drush-command: drush en devel -y
     mglaman/drupal-check:

@@ -29,3 +29,4 @@ default:
         drupal_root: $drupal_root
       region_map:
         content: "#content"
+        header: "#header"
