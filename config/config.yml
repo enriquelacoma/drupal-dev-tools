@@ -1,6 +1,10 @@
 project:
-  path: /var/www/html
-  name: drupal
+  path: /var/www/html/drupal
+  project_url: 1
+behat:
+  behat_url: http://php/drupal/web
+  selenium_url: http://selenium:4444/wd/hub
+  files_path: /var/www/html/drupal/web
   mysql:
     DB_ROOT_PASSWORD: root
     DB_NAME: drupal

@@ -57,7 +57,7 @@ class InstallDrupalCommand extends Command {
       'composer',
       'install',
     ];
-    $process = new Process($options, $this->projectPath . "/" . $this->config['project']['name']);
+    $process = new Process($options, $this->projectPath);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
@@ -73,7 +73,7 @@ class InstallDrupalCommand extends Command {
       "-vvv",
       "--db-url=mysql://$dbUser:$dbPass@$ipAddress/$dbName",
     ];
-    $process = new Process($options, $this->projectPath . "/drupal");
+    $process = new Process($options, $this->projectPath);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
@@ -84,7 +84,7 @@ class InstallDrupalCommand extends Command {
       "admin",
       "admin",
     ];
-    $process = new Process($options, $this->projectPath . "/drupal");
+    $process = new Process($options, $this->projectPath);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;

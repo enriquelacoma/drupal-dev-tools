@@ -57,7 +57,7 @@ class InstallDevCommand extends Command {
       if (1 == $this->composerConfig['verbose']) {
         $options[] = '-vvv';
       }
-      $process = new Process($options, $this->projectPath . "/" . $this->config['project']['name']);
+      $process = new Process($options, $this->projectPath);
       $process->setTimeout($this->composerConfig['timeout']);
       $process->run(function ($type, $buffer) {
         echo $buffer;

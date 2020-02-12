@@ -39,28 +39,28 @@ class BehatConfigCommand extends Command {
   protected function runCommand(InputInterface $input, OutputInterface $output) {
     //$this->composerTimeout();
     $options = [
-      $this->projectPath . "/" . $this->config['project']['name'] . "/vendor/bin/behat",
+      $this->projectPath . "/vendor/bin/behat",
       "--init",
     ];
-    $process = new Process($options, $this->projectPath . "/" . $this->config['project']['name']);
+    $process = new Process($options, $this->projectPath);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
     // Replace behat.yml file.
-    copy("config/behat.yml", $this->projectPath . "/" . $this->config['project']['name'] . "/behat.yml");
+    copy("config/behat.yml", $this->projectPath . "/behat.yml");
     // Replace values in behat.yml file.
-    $config = Yaml::parseFile($this->projectPath . "/" . $this->config['project']['name'] . "/behat.yml");
+    $config = Yaml::parseFile($this->projectPath . "/behat.yml");
     $wd_host ='http://selenium:4444/wd/hub';
-    $files_path = $this->projectPath . "/" . $this->config['project']['name'] . "/web";
+    $files_path = $this->projectPath . "/web";
     $base_url = "http://php/drupal/web";
-    $drupal_root = $this->projectPath . "/" . $this->config['project']['name'] . "/web";
+    $drupal_root = $this->projectPath . "/web";
     $config['default']['extensions']['Drupal\MinkExtension']['selenium2']['wd_host'] = $wd_host;
     $config['default']['extensions']['Drupal\MinkExtension']['files_path'] = $files_path;
     $config['default']['extensions']['Drupal\MinkExtension']['base_url'] = $base_url;
     $config['default']['extensions']['Drupal\DrupalExtension']['drupal']['drupal_root'] = $drupal_root;
     $yaml = Yaml::dump($config, 8);
-    file_put_contents($this->projectPath . "/" . $this->config['project']['name'] . "/behat.yml", $yaml);
+    file_put_contents($this->projectPath . "/behat.yml", $yaml);
   }
 
 }
