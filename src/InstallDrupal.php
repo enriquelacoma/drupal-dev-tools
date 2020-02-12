@@ -41,14 +41,14 @@ class InstallDrupalCommand extends Command {
       "composer",
       "create-project",
       "drupal-composer/drupal-project:8.x-dev",
-      $this->config['project']['name'],
+      $this->config['project']['project_name'],
       "--no-interaction",
     ];
     // Add verbose options.
     if (1 == $this->composerConfig['verbose']) {
       $options[] = '-vvv';
     }
-    $process = new Process($options, $this->projectPath);
+    $process = new Process($options, $this->config['project']['install_path']);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
@@ -57,7 +57,7 @@ class InstallDrupalCommand extends Command {
       'composer',
       'install',
     ];
-    $process = new Process($options, $this->projectPath . "/" . $this->config['project']['name']);
+    $process = new Process($options, $this->config['project']['path']);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
@@ -73,7 +73,7 @@ class InstallDrupalCommand extends Command {
       "-vvv",
       "--db-url=mysql://$dbUser:$dbPass@$ipAddress/$dbName",
     ];
-    $process = new Process($options, $this->projectPath . "/drupal");
+    $process = new Process($options, $this->config['project']['path']);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
@@ -84,7 +84,7 @@ class InstallDrupalCommand extends Command {
       "admin",
       "admin",
     ];
-    $process = new Process($options, $this->projectPath . "/drupal");
+    $process = new Process($options, $this->config['project']['path']);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;

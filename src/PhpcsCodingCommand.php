@@ -37,23 +37,23 @@ class PhpcsCodingCommand extends Command {
    * {@inheritdoc}
    */
   protected function runCommand(InputInterface $input, OutputInterface $output) {
-    //$this->composerTimeout();
+    $this->composerTimeout();
     $options = [
-      $this->projectPath . "/" . $this->config['project']['name'] . '/vendor/squizlabs/php_codesniffer/bin/phpcs',
+      $this->config['project']['path'] . '/vendor/squizlabs/php_codesniffer/bin/phpcs',
       '--config-set',
       'installed-paths',
-      $this->projectPath . "/" . $this->config['project']['name'] . '/vendor/drupal/coder/code_sniffer',
+      $this->config['project']['path'] . '/vendor/drupal/coder/code_sniffer',
     ];
-    $process = new Process($options, $this->projectPath);
+    $process = new Process($options, $this->config['project']['path']);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;
     });
     $options = [
-      $this->projectPath . "/" . $this->config['project']['name'] . '/vendor/squizlabs/php_codesniffer/bin/phpcs',
+      $this->config['project']['path'] . '/vendor/squizlabs/php_codesniffer/bin/phpcs',
       '-i',
     ];
-    $process = new Process($options, $this->projectPath);
+    $process = new Process($options, $this->config['project']['path']);
     $process->setTimeout($this->composerConfig['timeout']);
     $process->run(function ($type, $buffer) {
       echo $buffer;

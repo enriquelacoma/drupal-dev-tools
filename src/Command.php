@@ -53,7 +53,8 @@ class Command extends SymfonyCommand {
     $config = Yaml::parseFile('config/config.yml');
     $this->config = $config;
     $this->composerConfig = $config['composer']['config'];
-    $this->projectPath = $config['project']['path'];
+    $this->config['project']['path'] = $config['project']['install_path'] . "/" . $config['project']['project_name'];
+    $this->config['behat']['drupal_root'] = $this->config['project']['path'] . "/web";
     foreach ($config['composer']['dependencies'] as $key => $value) {
       if (1 == $value['install']) {
         $this->dependencies[$key] = $value;
@@ -74,7 +75,7 @@ class Command extends SymfonyCommand {
       if (1 == $this->composerConfig['verbose']) {
         $options[] = '-vvv';
       }
-      $process = new Process($options, $this->projectPath);
+      $process = new Process($options, $this->config['project']['path']);
       $process->setTimeout($this->composerConfig['timeout']);
       $process->run(function ($type, $buffer) {
         echo $buffer;
