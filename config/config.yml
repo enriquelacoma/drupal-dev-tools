@@ -1,4 +1,6 @@
 project:
+  install_path: /var/www/html
+  project_name: drupal
   path: /var/www/html/drupal
   project_url: 1
 behat:
