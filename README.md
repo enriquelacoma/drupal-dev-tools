@@ -1,19 +1,28 @@
-Tools to add to a Drupal project
+# What it this
 
-* phpcs
-* behat
-* drupal coder
-* devel
-* https://www.drupal.org/project/hacked
-* https://github.com/mglaman/drupal-check
-* https://www.drupal.org/project/twig_vardumper
-* https://www.drupal.org/project/debug_bar
+Install drupal development tools for proyects using https://github.com/programeta/easy-docker-drupal
 
-TODO
-- Review paths and hardcoded vars
-- Document install and how to use (dependency on programeta/easy-docker-drupal)
-- Fix global switch
-- Create framework to run commands on containers
-- Add grump
-- Add windows compatibility (maybe)
-- Add repos with additional behat steps
+## Tools to add to a Drupal project
+| Tool           | Url                                           | Description   |
+|----------------|-----------------------------------------------|---------------|
+| phpcs          | url                                           | code analysis |
+| behat          | url                                           | code analysis |
+| drupal-check   | https://github.com/mglaman/drupal-check       | code analysis |
+| devel          | url                                           | code analysis |
+| hacked         | https://www.drupal.org/project/hacked         | code analysis |
+| twig_vardumper | https://www.drupal.org/project/twig_vardumper | code analysis |
+| debug_bar      | https://www.drupal.org/project/debug_bar      | code analysis |
+
+# How to install it
+
+* Install docker
+* Copy this tool
+* Run composer
+
+# How to use it
+
+* Configure config/config.yml
+* List commands
+* Install drupal
+* Install tools
+* Check tools
