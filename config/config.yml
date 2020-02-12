@@ -1,17 +1,19 @@
 project:
   install_path: /var/www/html
   project_name: drupal
-  path: /var/www/html/drupal
-  project_url: 1
-behat:
-  behat_url: http://php/drupal/web
-  selenium_url: http://selenium:4444/wd/hub
-  files_path: /var/www/html/drupal/web
+  # This value is not configurable.
+  path: $install_path/$project_name
   mysql:
     DB_ROOT_PASSWORD: root
     DB_NAME: drupal
     DB_USER: root
     DB_PASSWORD: root
+behat:
+  behat_url: http://php/drupal/web
+  selenium_url: http://selenium:4444/wd/hub
+  # This value is not configurable.
+  drupal_root: $path/web
+
 composer:
   config:
     timeout: 2000
@@ -28,25 +30,25 @@ composer:
         - global
       post-command: php run.php phpcs-config
     drupal/devel:
-      install: true
+      install: false
       require-dev: true
       drush-command: drush en devel -y
     mglaman/drupal-check:
-      install: true
+      install: false
       require-dev: true
       switches:
         - global
       post-command:
     drupal/hacked:
-      install: true
+      install: false
       require-dev: true
       drush-command: drush en hacked -y
     drupal/twig_vardumper:
-      install: true
+      install: false
       require-dev: true
       drush-command: drush en twig_vardumper -y
     drupal/debug_bar:
-      install: true
+      install: false
       require-dev: true
       drush-command: drush en debug-bar -y
     drupal/drupal-extension:
