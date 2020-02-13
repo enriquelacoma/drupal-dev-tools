@@ -21,8 +21,13 @@ Install drupal development tools for proyects using https://github.com/programet
 
 # How to use it
 
+* Go to /srv/shared/drupal-dev-tools
 * Configure config/config.yml
 * List commands
-* Install drupal
-* Install tools
-* Check tools
+
+| Command      | Description       | Hot to use it |
+|--------------|-------------------|---------------|
+| install-site | Install dev tools |               |
+| install-dev  | Install dev tools |               |
+| behat-config | Install dev tools |               |
+| phpcs-config | Install dev tools |               |
