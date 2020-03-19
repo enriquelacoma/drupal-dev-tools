@@ -15,14 +15,17 @@ Install drupal development tools for proyects using https://github.com/programet
 
 # How to install it
 
-* Install docker
-* Copy this tool
-* Run composer
+* On you project run composer require enriquelacoma/drupal-dev-tools
 
 # How to use it
 
+* Go to /srv/shared/drupal-dev-tools
 * Configure config/config.yml
 * List commands
-* Install drupal
-* Install tools
-* Check tools
+
+| Command      | Description       | Hot to use it |
+|--------------|-------------------|---------------|
+| install-site | Install dev tools |               |
+| install-dev  | Install dev tools |               |
+| behat-config | Install dev tools |               |
+| phpcs-config | Install dev tools |               |
