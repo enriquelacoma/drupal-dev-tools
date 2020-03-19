@@ -15,8 +15,7 @@ Install drupal development tools for proyects using https://github.com/programet
 
 # How to install it
 
-* Install docker
-* git clone this
+* On you project run composer require enriquelacoma/drupal-dev-tools
 
 # How to use it
 
