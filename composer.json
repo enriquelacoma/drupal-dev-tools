@@ -1,5 +1,5 @@
 {
-  name: "enriquelacoma/drupal-dev-tools",
+  "name": "enriquelacoma/drupal-dev-tools",
   "require": {
     "symfony/console": "^4.4",
     "symfony/process": "^5.0",
