@@ -10,7 +10,7 @@ if (file_exists(__DIR__ . '/../../autoload.php')) {
 } else {
   die("Could not find autoloader. Run 'composer install'.");
 }
-require $autoloaderPath;p';
+require $autoloaderPath;
 
 use Symfony\Component\Console\Application;
 use Console\InstallDevCommand;
