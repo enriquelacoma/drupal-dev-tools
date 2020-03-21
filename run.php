@@ -1,7 +1,16 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+if (file_exists(__DIR__ . '/../../autoload.php')) {
+  // Global vendor
+  $autoloaderPath = __DIR__ . '/../../autoload.php';
+} elseif (file_exists(__DIR__ . '/vendor/autoload.php')) {
+  // Local vendor.
+  $autoloaderPath = __DIR__ . '/vendor/autoload.php';
+} else {
+  die("Could not find autoloader. Run 'composer install'.");
+}
+require $autoloaderPath;p';
 
 use Symfony\Component\Console\Application;
 use Console\InstallDevCommand;
